@@ -97,6 +97,10 @@ class LoginCubit extends Cubit<LoginState> {
     response.when(
       success: (data) async {
         await _saveUserToken(data.userData?.token ?? '');
+        await SharedPrefHelper.setString(
+          SharedPrefKeys.userName,
+          data.userData?.userName ?? '',
+        );
         await _persistRememberedCredentials();
         emit(LoginState.success(data));
       },

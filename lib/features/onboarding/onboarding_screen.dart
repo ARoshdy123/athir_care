@@ -27,7 +27,7 @@ class OnboardingScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        'Manage and schedule all of your medical appointments easily with Docdoc to get a new experience.',
+                        'Manage and schedule all of your medical appointments easily with Athir to get a new experience.',
                         textAlign: TextAlign.center,
                         style: TextStyles.font12GrayRegular,
                       ),

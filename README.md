@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/svgs/docdoc_logo.svg" width="200" alt="DocDoc Logo"/>
+  <img src="assets/svgs/athir_logo.svg" width="200" alt="DocDoc Logo"/>
 </p>
 
 <h1 align="center">DocDoc - Doctor Appointment App</h1>

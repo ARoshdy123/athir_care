@@ -36,7 +36,30 @@ class SignupCubitListener extends StatelessWidget {
             showSuccessDialog(context);
           },
           signupError: (error) {
-            setupErrorState(context, error);
+            // Dismiss the loading dialog, then show the error
+            context.pop();
+            showDialog(
+              context: context,
+              builder:
+                  (context) => AlertDialog(
+                    icon: const Icon(Icons.error, color: Colors.red, size: 32),
+                    content: Text(
+                      error,
+                      style: TextStyles.font15DarkBlueMedium,
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          context.pop();
+                        },
+                        child: Text(
+                          'Got it',
+                          style: TextStyles.font14BlueSemiBold,
+                        ),
+                      ),
+                    ],
+                  ),
+            );
           },
         );
       },
@@ -49,7 +72,10 @@ class SignupCubitListener extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Account Created Successfully',style: TextStyle(color: ColorsManager.green),),
+          title: Text(
+            'Account Created Successfully',
+            style: TextStyle(color: ColorsManager.green),
+          ),
           content: const SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -72,26 +98,6 @@ class SignupCubitListener extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-
-  void setupErrorState(BuildContext context, String error) {
-    context.pop();
-    showDialog(
-      context: context,
-      builder:
-          (context) => AlertDialog(
-            icon: const Icon(Icons.error, color: Colors.red, size: 32),
-            content: Text(error, style: TextStyles.font15DarkBlueMedium),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  context.pop();
-                },
-                child: Text('Got it', style: TextStyles.font14BlueSemiBold),
-              ),
-            ],
-          ),
     );
   }
 }

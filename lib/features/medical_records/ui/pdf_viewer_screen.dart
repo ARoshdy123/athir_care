@@ -1,11 +1,8 @@
-import 'dart:io';
-
 import 'package:doctor/core/theming/colors.dart';
 import 'package:doctor/core/theming/styles.dart';
+import 'package:doctor/features/medical_records/logic/pdf_download_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:pdfrx/pdfrx.dart';
 
 class PdfViewerScreen extends StatefulWidget {
   final String title;
@@ -24,65 +21,19 @@ class PdfViewerScreen extends StatefulWidget {
 }
 
 class _PdfViewerScreenState extends State<PdfViewerScreen> {
-  String? _localPath;
-  bool _isLoading = true;
-
   @override
   void initState() {
     super.initState();
-    _loadPdf();
-  }
-
-  Future<void> _loadPdf() async {
-    final data = await rootBundle.load(widget.assetPath);
-    final dir = await getTemporaryDirectory();
-    final fileName = widget.assetPath.split('/').last;
-    final file = File('${dir.path}/$fileName');
-    await file.writeAsBytes(data.buffer.asUint8List());
-    setState(() {
-      _localPath = file.path;
-      _isLoading = false;
-    });
-
     if (widget.triggerDownload) {
-      _downloadPdf();
+      WidgetsBinding.instance.addPostFrameCallback((_) => _downloadPdf());
     }
   }
 
   Future<void> _downloadPdf() async {
-    try {
-      final data = await rootBundle.load(widget.assetPath);
-      final fileName = widget.assetPath.split('/').last;
-
-      final dir =
-          await getExternalStorageDirectory() ??
-          await getApplicationDocumentsDirectory();
-
-      final downloadsDir = Directory('${dir.path}/Downloads');
-      if (!await downloadsDir.exists()) {
-        await downloadsDir.create(recursive: true);
-      }
-
-      final file = File('${downloadsDir.path}/$fileName');
-      await file.writeAsBytes(data.buffer.asUint8List(), flush: true);
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Saved: $fileName'),
-            backgroundColor: ColorsManager.mainBlue,
-          ),
-        );
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Download failed: $e'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    }
+    await PdfDownloadHelper.downloadAssetPdf(
+      context: context,
+      assetPath: widget.assetPath,
+    );
   }
 
   @override
@@ -110,18 +61,7 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
           ),
         ],
       ),
-      body:
-          _isLoading
-              ? const Center(
-                child: CircularProgressIndicator(color: ColorsManager.mainBlue),
-              )
-              : PDFView(
-                filePath: _localPath!,
-                enableSwipe: true,
-                swipeHorizontal: false,
-                autoSpacing: true,
-                pageFling: true,
-              ),
+      body: PdfViewer.asset(widget.assetPath),
     );
   }
 }

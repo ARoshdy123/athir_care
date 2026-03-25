@@ -282,7 +282,7 @@ class SummaryStep extends StatelessWidget {
 
   Widget _buildPricingSection(AppointmentCubit cubit) {
     final price = cubit.doctorData?.appointPrice ?? 0;
-    final tax = (price * 0.05).round(); // 5% tax
+    final tax = (price * 0.15).round(); // 15% tax
     final total = price + tax;
 
     return Container(

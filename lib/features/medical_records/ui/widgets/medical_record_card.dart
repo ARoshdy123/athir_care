@@ -1,15 +1,12 @@
-import 'dart:io';
-
 import 'package:doctor/core/helpers/extensions.dart';
 import 'package:doctor/core/helpers/spacing.dart';
 import 'package:doctor/core/routing/routes.dart';
 import 'package:doctor/core/theming/colors.dart';
 import 'package:doctor/core/theming/styles.dart';
+import 'package:doctor/features/medical_records/logic/pdf_download_helper.dart';
 import 'package:doctor/features/medical_records/data/medical_record_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:path_provider/path_provider.dart';
 
 class MedicalRecordCard extends StatelessWidget {
   final MedicalRecord record;
@@ -81,42 +78,10 @@ class MedicalRecordCard extends StatelessWidget {
               Expanded(
                 child: ElevatedButton.icon(
                   onPressed: () async {
-                    try {
-                      final data = await rootBundle.load(record.pdfAssetPath);
-                      final fileName = record.pdfAssetPath.split('/').last;
-
-                      final dir =
-                          await getExternalStorageDirectory() ??
-                          await getApplicationDocumentsDirectory();
-
-                      final downloadsDir = Directory('${dir.path}/Downloads');
-                      if (!await downloadsDir.exists()) {
-                        await downloadsDir.create(recursive: true);
-                      }
-
-                      final file = File('${downloadsDir.path}/$fileName');
-                      await file.writeAsBytes(
-                        data.buffer.asUint8List(),
-                        flush: true,
-                      );
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Saved: $fileName'),
-                            backgroundColor: ColorsManager.mainBlue,
-                          ),
-                        );
-                      }
-                    } catch (e) {
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Download failed: $e'),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                      }
-                    }
+                    await PdfDownloadHelper.downloadAssetPdf(
+                      context: context,
+                      assetPath: record.pdfAssetPath,
+                    );
                   },
                   icon: Icon(Icons.download, size: 18.r, color: Colors.white),
                   label: Text(
