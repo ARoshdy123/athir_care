@@ -1,12 +1,15 @@
 import 'package:doctor/core/helpers/spacing.dart';
 import 'package:doctor/core/theming/styles.dart';
+import 'package:doctor/features/home/data/models/banner_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:doctor/features/main_layout/logic/main_layout_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DoctorBanner extends StatelessWidget {
-  const DoctorBanner({super.key});
+/// A single banner card displayed inside the carousel.
+/// Stateless for maximum performance — no internal state, no rebuilds.
+class BannerCard extends StatelessWidget {
+  final BannerItem banner;
+
+  const BannerCard({super.key, required this.banner});
 
   @override
   Widget build(BuildContext context) {
@@ -21,29 +24,26 @@ class DoctorBanner extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24.r),
-              image: const DecorationImage(
-                image: AssetImage('assets/images/home_blue_pattern.png'),
+              image: DecorationImage(
+                image: AssetImage(banner.backgroundImage),
                 fit: BoxFit.cover,
               ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Book and\nschedule with\nbest doctors',
-                  style: TextStyles.font18WhiteMedium,
-                ),
+                Text(banner.title, style: TextStyles.font18WhiteMedium),
                 verticalSpace(14),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () => context.read<MainLayoutCubit>().goToTab(1),
+                    onPressed: () => banner.onTap(context),
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(48.0),
                       ),
                     ),
                     child: Text(
-                      'Find Nearby',
+                      banner.buttonText,
                       style: TextStyles.font12BlueRegular,
                     ),
                   ),
@@ -54,7 +54,7 @@ class DoctorBanner extends StatelessWidget {
           Positioned(
             right: 9.w,
             top: 0,
-            child: Image.asset('assets/images/doctor1.png', height: 200.h),
+            child: Image.asset(banner.imagePath, height: 200.h),
           ),
         ],
       ),

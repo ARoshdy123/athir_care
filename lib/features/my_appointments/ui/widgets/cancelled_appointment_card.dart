@@ -42,7 +42,7 @@ class CancelledAppointmentCard extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Icon(Icons.more_vert, size: 18.r, color: ColorsManager.gray),
+              // Icon(Icons.more_vert, size: 18.r, color: ColorsManager.gray),
             ],
           ),
           SizedBox(height: 4.h),

@@ -21,6 +21,8 @@ class PdfViewerScreen extends StatefulWidget {
 }
 
 class _PdfViewerScreenState extends State<PdfViewerScreen> {
+  bool _isDownloading = false;
+
   @override
   void initState() {
     super.initState();
@@ -30,10 +32,21 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
   }
 
   Future<void> _downloadPdf() async {
-    await PdfDownloadHelper.downloadAssetPdf(
-      context: context,
-      assetPath: widget.assetPath,
-    );
+    if (_isDownloading) return;
+    setState(() => _isDownloading = true);
+    try {
+      final result = await PdfDownloadHelper.downloadAssetPdf(
+        context: context,
+        assetPath: widget.assetPath,
+      );
+      // Offer "Open" button if context is still alive and save succeeded.
+      if (mounted && result.success && result.path.isNotEmpty) {
+        // SnackBar with Open action is already shown by PdfDownloadHelper.
+        // Here we also update the AppBar icon back to normal.
+      }
+    } finally {
+      if (mounted) setState(() => _isDownloading = false);
+    }
   }
 
   @override
@@ -55,10 +68,24 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
         centerTitle: true,
         title: Text(widget.title, style: TextStyles.font18DarkBlueSemiBold),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.download, color: ColorsManager.mainBlue),
-            onPressed: _downloadPdf,
-          ),
+          _isDownloading
+              ? Padding(
+                padding: const EdgeInsets.all(14.0),
+                child: SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      ColorsManager.mainBlue,
+                    ),
+                  ),
+                ),
+              )
+              : IconButton(
+                icon: const Icon(Icons.download, color: ColorsManager.mainBlue),
+                onPressed: _downloadPdf,
+              ),
         ],
       ),
       body: PdfViewer.asset(widget.assetPath),

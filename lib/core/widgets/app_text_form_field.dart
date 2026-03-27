@@ -71,7 +71,7 @@ class AppTextFormField extends StatelessWidget {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
       obscureText: isObscureText ?? false,
-
+      cursorColor: ColorsManager.mainBlue,
       style: TextStyles.font14DarkBlueMedium,
       validator: (value) => validator(value),
     );

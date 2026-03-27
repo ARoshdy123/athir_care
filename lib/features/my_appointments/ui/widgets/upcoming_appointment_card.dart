@@ -86,11 +86,11 @@ class UpcomingAppointmentCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Icon(
-                Icons.chat_bubble_outline,
-                color: ColorsManager.mainBlue,
-                size: 20.r,
-              ),
+              // Icon(
+              //   Icons.chat_bubble_outline,
+              //   color: ColorsManager.mainBlue,
+              //   size: 20.r,
+              // ),
             ],
           ),
           SizedBox(height: 14.h),
@@ -110,7 +110,10 @@ class UpcomingAppointmentCard extends StatelessWidget {
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(context),
-                                child: const Text('No'),
+                                child: Text(
+                                  'No',
+                                  style: TextStyles.font13BlueSemiBold,
+                                ),
                               ),
                               TextButton(
                                 onPressed: () {

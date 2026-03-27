@@ -36,7 +36,9 @@ class DoctorsSpecialityListViewItem extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 28,
-              backgroundColor: ColorsManager.lightBlue,
+              backgroundColor: ColorsManager.superLightGreen.withValues(
+                alpha: 0.5,
+              ),
               child: Image.asset(
                 getSpecialtyImage(specializationsData?.id),
                 height: 40.h,

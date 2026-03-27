@@ -22,6 +22,8 @@ import 'package:doctor/features/my_appointments/ui/reschedule_screen.dart';
 import 'package:doctor/features/my_appointments/ui/rescheduled_confirmed_screen.dart';
 import 'package:doctor/features/sign_up/logic/cubit/sign_up_cubit.dart';
 import 'package:doctor/features/sign_up/ui/sign_up_screen.dart';
+import 'package:doctor/features/offers/data/models/offer_item_model.dart';
+import 'package:doctor/features/offers/ui/offer_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -128,6 +130,12 @@ class AppRouter {
                 assetPath: args['assetPath'] as String,
                 triggerDownload: args['download'] as bool? ?? false,
               ),
+        );
+
+      case Routes.offerDetails:
+        final offer = arguments as OfferItem;
+        return MaterialPageRoute(
+          builder: (_) => OfferDetailsScreen(offer: offer),
         );
 
       default:

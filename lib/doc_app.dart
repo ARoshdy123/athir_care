@@ -14,15 +14,21 @@ class DocApp extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-        child: MaterialApp(
-          title: 'Doc App',
-          theme: ThemeData(
-            primaryColor: ColorsManager.mainBlue,
-            scaffoldBackgroundColor: Colors.white,
+      child: MaterialApp(
+        title: 'Doc App',
+        theme: ThemeData(
+          primaryColor: ColorsManager.mainBlue,
+          scaffoldBackgroundColor: Colors.white,
+          textSelectionTheme: TextSelectionThemeData(
+            cursorColor: ColorsManager.mainBlue,
+            selectionColor: ColorsManager.lightBlue.withValues(alpha: 0.5),
+            selectionHandleColor: ColorsManager.mainBlue,
           ),
-          debugShowCheckedModeBanner: false,
-          initialRoute:  Routes.onBoardingScreen,
-          onGenerateRoute: appRouter.generateRoute,
-        ));
+        ),
+        debugShowCheckedModeBanner: false,
+        initialRoute: Routes.onBoardingScreen,
+        onGenerateRoute: appRouter.generateRoute,
+      ),
+    );
   }
 }

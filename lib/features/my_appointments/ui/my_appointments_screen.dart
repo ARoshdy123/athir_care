@@ -46,10 +46,10 @@ class _MyAppointmentsScreenState extends State<MyAppointmentsScreen>
         centerTitle: true,
         title: Text('My Appointment', style: TextStyles.font18DarkBlueBold),
         actions: [
-          IconButton(
-            icon: Icon(Icons.search, color: ColorsManager.darkBlue, size: 22.r),
-            onPressed: () {},
-          ),
+          // IconButton(
+          //   icon: Icon(Icons.search, color: ColorsManager.darkBlue, size: 22.r),
+          //   onPressed: () {},
+          // ),
         ],
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(48.h),

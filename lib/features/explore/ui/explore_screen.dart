@@ -16,9 +16,10 @@ class ExploreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorsManager.superLightGray,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: ColorsManager.white,
+        scrolledUnderElevation: 0,
         elevation: 0,
         centerTitle: true,
         title: Text(
@@ -28,14 +29,14 @@ class ExploreScreen extends StatelessWidget {
         leading: const SizedBox.shrink(),
         leadingWidth: 0,
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.more_horiz,
-              color: ColorsManager.darkBlue,
-              size: 24.r,
-            ),
-            onPressed: () {},
-          ),
+          // IconButton(
+          //   icon: Icon(
+          //     Icons.more_horiz,
+          //     color: ColorsManager.darkBlue,
+          //     size: 24.r,
+          //   ),
+          //   onPressed: () {},
+          // ),
         ],
       ),
       body: Padding(

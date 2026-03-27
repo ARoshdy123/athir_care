@@ -1,62 +1,47 @@
+import 'package:doctor/core/di/dependency_injection.dart';
+import 'package:doctor/core/services/download_service.dart';
 import 'package:doctor/core/theming/colors.dart';
-import 'package:file_saver/file_saver.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
+/// Thin adapter that keeps the legacy call-site API intact while
+/// delegating all real work to [DownloadService].
 class PdfDownloadHelper {
   const PdfDownloadHelper._();
 
-  static const MethodChannel _downloadsChannel = MethodChannel(
-    'doctor/downloads',
-  );
-
-  static Future<void> downloadAssetPdf({
+  /// Downloads the asset at [assetPath] and shows a result SnackBar.
+  ///
+  /// [onProgress] receives values from 0.0 to 1.0 during the save.
+  static Future<DownloadResult> downloadAssetPdf({
     required BuildContext context,
     required String assetPath,
+    void Function(double)? onProgress,
   }) async {
-    try {
-      final data = await rootBundle.load(assetPath);
-      final fileName = assetPath.split('/').last;
-      final bytes = data.buffer.asUint8List();
-      late final String savedPath;
+    final service = getIt<DownloadService>();
 
-      if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
-        savedPath =
-            await _downloadsChannel.invokeMethod<String>('savePdfToDownloads', {
-              'fileName': fileName,
-              'bytes': bytes,
-            }) ??
-            '';
-      } else {
-        savedPath = await FileSaver.instance.saveFile(
-          name: fileName.replaceAll('.pdf', ''),
-          bytes: bytes,
-          ext: 'pdf',
-          mimeType: MimeType.pdf,
-        );
-      }
+    final result = await service.downloadFromAsset(
+      assetPath: assetPath,
+      mimeType: 'application/pdf',
+    );
 
-      if (!context.mounted) return;
+    if (!context.mounted) return result;
 
-      final locationText =
-          savedPath.isNotEmpty ? 'Saved to: $savedPath' : 'Saved: $fileName';
-
+    if (result.success) {
+      final label = result.path.isNotEmpty ? 'Saved to Downloads' : 'PDF saved';
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(locationText),
+          content: Text(label),
           backgroundColor: ColorsManager.mainBlue,
         ),
       );
-    } catch (e) {
-      if (!context.mounted) return;
-
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Download failed: $e'),
+          content: Text('Download failed: ${result.error}'),
           backgroundColor: Colors.red,
         ),
       );
     }
+
+    return result;
   }
 }

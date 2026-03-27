@@ -39,14 +39,22 @@ class _HomeTopBarState extends State<HomeTopBar> {
               'Welcome Back, ${_userName.isEmpty ? '' : '$_userName!'}',
               style: TextStyles.font18DarkBlueBold,
             ),
-            Text('How are you today?', style: TextStyles.font12GrayRegular),
+            Text(
+              'How are you feeling today?',
+              style: TextStyles.font12GrayRegular,
+            ),
           ],
         ),
         const Spacer(),
         CircleAvatar(
-          radius: 24,
-          backgroundColor: ColorsManager.superLightGray2,
-          child: SvgPicture.asset('assets/svgs/notifications.svg'),
+          radius: 28,
+          backgroundColor: ColorsManager.superLightGreen,
+          child: SvgPicture.asset(
+            'assets/svgs/athir_logo1.svg',
+            fit: BoxFit.contain,
+            width: 45,
+            height: 45,
+          ),
         ),
       ],
     );

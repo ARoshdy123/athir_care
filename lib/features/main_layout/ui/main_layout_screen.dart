@@ -50,78 +50,78 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
         onNavigateToAppointments: () => _mainLayoutCubit.goToTab(2),
       ),
     ];
-    return BlocProvider<MainLayoutCubit>.value(
-      value: _mainLayoutCubit,
+    // MultiBlocProvider is OUTSIDE BlocBuilder so cubits are created
+    // once when the layout mounts, not re-created on every tab switch.
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<MainLayoutCubit>.value(value: _mainLayoutCubit),
+        BlocProvider<HomeCubit>(
+          create: (_) => getIt<HomeCubit>()..getSpecializations(),
+        ),
+        BlocProvider<ExploreCubit>(
+          create: (_) => getIt<ExploreCubit>()..getAllDoctors(),
+        ),
+        BlocProvider<ProfileCubit>(create: (_) => getIt<ProfileCubit>()),
+        BlocProvider<LogoutCubit>(create: (_) => getIt<LogoutCubit>()),
+        BlocProvider<MyAppointmentsCubit>(
+          create: (_) => getIt<MyAppointmentsCubit>(),
+        ),
+      ],
       child: BlocBuilder<MainLayoutCubit, int>(
         bloc: _mainLayoutCubit,
         builder: (context, currentIndex) {
-          return MultiBlocProvider(
-            providers: [
-              BlocProvider<HomeCubit>(
-                create: (_) => getIt<HomeCubit>()..getSpecializations(),
-              ),
-              BlocProvider<ExploreCubit>(
-                create: (_) => getIt<ExploreCubit>()..getAllDoctors(),
-              ),
-              BlocProvider<ProfileCubit>(create: (_) => getIt<ProfileCubit>()),
-              BlocProvider<LogoutCubit>(create: (_) => getIt<LogoutCubit>()),
-              BlocProvider<MyAppointmentsCubit>(
-                create: (_) => getIt<MyAppointmentsCubit>(),
-              ),
-            ],
-            child: PopScope(
-              canPop: false,
-              onPopInvokedWithResult: (didPop, _) {
-                if (didPop) return;
-                if (currentIndex != 0) {
-                  _mainLayoutCubit.goToTab(0);
-                } else {
-                  SystemNavigator.pop();
-                }
-              },
-              child: Scaffold(
-                body: IndexedStack(index: currentIndex, children: pages),
-                bottomNavigationBar: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 20,
-                        color: Colors.black.withOpacity(0.05),
-                      ),
-                    ],
-                  ),
-                  child: SafeArea(
-                    child: Padding(
+          return PopScope(
+            canPop: false,
+            onPopInvokedWithResult: (didPop, _) {
+              if (didPop) return;
+              if (currentIndex != 0) {
+                _mainLayoutCubit.goToTab(0);
+              } else {
+                SystemNavigator.pop();
+              }
+            },
+            child: Scaffold(
+              body: IndexedStack(index: currentIndex, children: pages),
+              bottomNavigationBar: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 20,
+                      color: Colors.black.withValues(alpha: 0.05),
+                    ),
+                  ],
+                ),
+                child: SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 8.h,
+                    ),
+                    child: GNav(
+                      rippleColor: ColorsManager.lightBlue,
+                      hoverColor: ColorsManager.lightBlue,
+                      gap: 8,
+                      activeColor: ColorsManager.mainBlue,
+                      iconSize: 24.r,
                       padding: EdgeInsets.symmetric(
                         horizontal: 16.w,
-                        vertical: 8.h,
+                        vertical: 12.h,
                       ),
-                      child: GNav(
-                        rippleColor: ColorsManager.lightBlue,
-                        hoverColor: ColorsManager.lightBlue,
-                        gap: 8,
-                        activeColor: ColorsManager.mainBlue,
-                        iconSize: 24.r,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16.w,
-                          vertical: 12.h,
+                      duration: const Duration(milliseconds: 400),
+                      tabBackgroundColor: ColorsManager.lightBlue,
+                      color: ColorsManager.gray,
+                      selectedIndex: currentIndex,
+                      onTabChange: (index) => _mainLayoutCubit.goToTab(index),
+                      tabs: const [
+                        GButton(icon: Icons.home_outlined, text: 'Home'),
+                        GButton(icon: Icons.search, text: 'Explore'),
+                        GButton(
+                          icon: Icons.calendar_today_outlined,
+                          text: 'Appointment',
                         ),
-                        duration: const Duration(milliseconds: 400),
-                        tabBackgroundColor: ColorsManager.lightBlue,
-                        color: ColorsManager.gray,
-                        selectedIndex: currentIndex,
-                        onTabChange: (index) => _mainLayoutCubit.goToTab(index),
-                        tabs: const [
-                          GButton(icon: Icons.home_outlined, text: 'Home'),
-                          GButton(icon: Icons.search, text: 'Explore'),
-                          GButton(
-                            icon: Icons.calendar_today_outlined,
-                            text: 'Appointment',
-                          ),
-                          GButton(icon: Icons.person_outline, text: 'Profile'),
-                        ],
-                      ),
+                        GButton(icon: Icons.person_outline, text: 'Profile'),
+                      ],
                     ),
                   ),
                 ),
