@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../data/models/specializations_response_model.dart';
 import 'doctors_list_view_item.dart';
@@ -12,6 +13,7 @@ class DoctorsListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
+        padding: EdgeInsets.only(bottom: 16.h),
         itemCount: doctorsList?.length,
         itemBuilder: (context, index) {
           return DoctorsListViewItem(doctorsModel: doctorsList?[index]);

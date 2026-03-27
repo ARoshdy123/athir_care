@@ -156,16 +156,18 @@ class SpecializationsAndDoctorsBlocBuilder extends StatelessWidget {
   }
 
   Widget setupSuccess(specializationsList) {
-    return Column(
-      children: [
-        DoctorsSpecialityListView(
-          specializationDataList: specializationsList ?? [],
-        ),
-        verticalSpace(18),
-        const RecommendationDoctor(),
-        verticalSpace(8),
-        DoctorsListView(doctorsList: specializationsList?[0]?.doctorsList),
-      ],
+    return Expanded(
+      child: Column(
+        children: [
+          DoctorsSpecialityListView(
+            specializationDataList: specializationsList ?? [],
+          ),
+          verticalSpace(18),
+          const RecommendationDoctor(),
+          verticalSpace(8),
+          DoctorsListView(doctorsList: specializationsList?[0]?.doctorsList),
+        ],
+      ),
     );
   }
 

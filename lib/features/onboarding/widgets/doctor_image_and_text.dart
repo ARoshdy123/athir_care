@@ -9,7 +9,7 @@ class DoctorImageAndText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SvgPicture.asset('assets/svgs/docdoc_logo_low_opacity.svg'),
+        SvgPicture.asset('assets/svgs/athir_logo_low_opacity.svg'),
         Container(
           foregroundDecoration: BoxDecoration(
             gradient: LinearGradient(

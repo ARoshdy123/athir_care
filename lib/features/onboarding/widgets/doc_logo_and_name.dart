@@ -11,9 +11,9 @@ class DocLogoAndName extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SvgPicture.asset('assets/svgs/docdoc_logo.svg'),
+        SvgPicture.asset('assets/svgs/athir_logo1.svg'),
         SizedBox(width: 10.w),
-        Text('DocDoc', style: TextStyles.font24BlackBold),
+        Text('Athir', style: TextStyles.font32BlueBold),
       ],
     );
   }

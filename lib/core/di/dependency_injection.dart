@@ -1,3 +1,4 @@
+import 'package:doctor/core/services/download_service.dart';
 import 'package:dio/dio.dart';
 import 'package:doctor/core/networking/dio_factory.dart';
 import 'package:doctor/features/home/data/data_sources/home_api_service.dart';
@@ -29,10 +30,12 @@ final getIt = GetIt.instance;
 
 Future<void> setupGetIt() async {
   // Dio & ApiService
-  Dio dio = DioFactory.getDio();
+  Dio dio = await DioFactory.getDio();
   // Register Dio  one instance
   getIt.registerLazySingleton<LoginApiService>(() => LoginApiService(dio));
   getIt.registerLazySingleton<SignUpApiService>(() => SignUpApiService(dio));
+  // Download service (shared singleton)
+  getIt.registerLazySingleton<DownloadService>(() => DownloadService(dio));
 
   //login
   getIt.registerLazySingleton<LoginRepo>(

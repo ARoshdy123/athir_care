@@ -2,6 +2,8 @@ import 'package:doctor/core/helpers/spacing.dart';
 import 'package:doctor/core/theming/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:doctor/features/main_layout/logic/main_layout_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DoctorBanner extends StatelessWidget {
   const DoctorBanner({super.key});
@@ -28,13 +30,13 @@ class DoctorBanner extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Book and\nschedule with\nnearest doctor',
+                  'Book and\nschedule with\nbest doctors',
                   style: TextStyles.font18WhiteMedium,
                 ),
                 verticalSpace(14),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => context.read<MainLayoutCubit>().goToTab(1),
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(48.0),

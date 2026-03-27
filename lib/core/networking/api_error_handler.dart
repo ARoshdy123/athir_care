@@ -166,7 +166,7 @@ ApiErrorModel _handleError(DioException error) {
     case DioExceptionType.cancel:
       return DataSource.CANCEL.getFailure();
     case DioExceptionType.connectionError:
-      return DataSource.DEFAULT.getFailure();
+      return DataSource.NO_INTERNET_CONNECTION.getFailure();
     case DioExceptionType.badCertificate:
       return DataSource.DEFAULT.getFailure();
   }

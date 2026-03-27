@@ -11,6 +11,7 @@ import 'package:doctor/features/profile/logic/cubit/logout_cubit.dart';
 import 'package:doctor/features/profile/logic/cubit/profile_cubit.dart';
 import 'package:doctor/features/profile/ui/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -49,25 +50,36 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
         onNavigateToAppointments: () => _mainLayoutCubit.goToTab(2),
       ),
     ];
-    return BlocProvider<MainLayoutCubit>.value(
-      value: _mainLayoutCubit,
+    // MultiBlocProvider is OUTSIDE BlocBuilder so cubits are created
+    // once when the layout mounts, not re-created on every tab switch.
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<MainLayoutCubit>.value(value: _mainLayoutCubit),
+        BlocProvider<HomeCubit>(
+          create: (_) => getIt<HomeCubit>()..getSpecializations(),
+        ),
+        BlocProvider<ExploreCubit>(
+          create: (_) => getIt<ExploreCubit>()..getAllDoctors(),
+        ),
+        BlocProvider<ProfileCubit>(create: (_) => getIt<ProfileCubit>()),
+        BlocProvider<LogoutCubit>(create: (_) => getIt<LogoutCubit>()),
+        BlocProvider<MyAppointmentsCubit>(
+          create: (_) => getIt<MyAppointmentsCubit>(),
+        ),
+      ],
       child: BlocBuilder<MainLayoutCubit, int>(
         bloc: _mainLayoutCubit,
         builder: (context, currentIndex) {
-          return MultiBlocProvider(
-            providers: [
-              BlocProvider<HomeCubit>(
-                create: (_) => getIt<HomeCubit>()..getSpecializations(),
-              ),
-              BlocProvider<ExploreCubit>(
-                create: (_) => getIt<ExploreCubit>()..getAllDoctors(),
-              ),
-              BlocProvider<ProfileCubit>(create: (_) => getIt<ProfileCubit>()),
-              BlocProvider<LogoutCubit>(create: (_) => getIt<LogoutCubit>()),
-              BlocProvider<MyAppointmentsCubit>(
-                create: (_) => getIt<MyAppointmentsCubit>(),
-              ),
-            ],
+          return PopScope(
+            canPop: false,
+            onPopInvokedWithResult: (didPop, _) {
+              if (didPop) return;
+              if (currentIndex != 0) {
+                _mainLayoutCubit.goToTab(0);
+              } else {
+                SystemNavigator.pop();
+              }
+            },
             child: Scaffold(
               body: IndexedStack(index: currentIndex, children: pages),
               bottomNavigationBar: Container(
@@ -76,7 +88,7 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 20,
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withValues(alpha: 0.05),
                     ),
                   ],
                 ),

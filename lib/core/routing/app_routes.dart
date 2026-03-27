@@ -7,6 +7,8 @@ import 'package:doctor/features/login/ui/login_screen.dart';
 import 'package:doctor/features/explore/data/models/all_doctors_response_model.dart';
 import 'package:doctor/features/explore/ui/doctor_detail_screen.dart';
 import 'package:doctor/features/main_layout/ui/main_layout_screen.dart';
+import 'package:doctor/features/medical_records/ui/medical_records_screen.dart';
+import 'package:doctor/features/medical_records/ui/pdf_viewer_screen.dart';
 import 'package:doctor/features/onboarding/onboarding_screen.dart';
 import 'package:doctor/features/profile/data/models/profile_response_model.dart';
 import 'package:doctor/features/profile/logic/cubit/update_profile_cubit.dart';
@@ -20,6 +22,8 @@ import 'package:doctor/features/my_appointments/ui/reschedule_screen.dart';
 import 'package:doctor/features/my_appointments/ui/rescheduled_confirmed_screen.dart';
 import 'package:doctor/features/sign_up/logic/cubit/sign_up_cubit.dart';
 import 'package:doctor/features/sign_up/ui/sign_up_screen.dart';
+import 'package:doctor/features/offers/data/models/offer_item_model.dart';
+import 'package:doctor/features/offers/ui/offer_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -112,6 +116,26 @@ class AppRouter {
         final cubit = arguments as AppointmentCubit;
         return MaterialPageRoute(
           builder: (_) => RescheduledConfirmedScreen(cubit: cubit),
+        );
+
+      case Routes.medicalRecords:
+        return MaterialPageRoute(builder: (_) => const MedicalRecordsScreen());
+
+      case Routes.pdfViewer:
+        final args = arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder:
+              (_) => PdfViewerScreen(
+                title: args['title'] as String,
+                assetPath: args['assetPath'] as String,
+                triggerDownload: args['download'] as bool? ?? false,
+              ),
+        );
+
+      case Routes.offerDetails:
+        final offer = arguments as OfferItem;
+        return MaterialPageRoute(
+          builder: (_) => OfferDetailsScreen(offer: offer),
         );
 
       default:

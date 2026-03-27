@@ -28,7 +28,7 @@ class ProfileMenuItems extends StatelessWidget {
         const Divider(height: 1, indent: 16, endIndent: 16),
         _ProfileMenuItem(
           iconData: Icons.medical_information_outlined,
-          label: 'Medical ID',
+          label: 'Medical Records',
           iconBgColor: const Color(0xFFE8F5E9),
           iconColor: const Color(0xFF2ECC71),
           onTap: onMedicalId,

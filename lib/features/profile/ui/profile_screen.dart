@@ -210,7 +210,7 @@ class _ProfileContent extends StatelessWidget {
             }
           },
           onMedicalId: () {
-            Navigator.of(context).pushNamed(Routes.medicalId);
+            Navigator.of(context).pushNamed(Routes.medicalRecords);
           },
         ),
         SizedBox(height: 24.h),

@@ -9,6 +9,7 @@ import 'package:doctor/features/login/ui/widgets/email_and_password.dart';
 import 'package:doctor/features/login/ui/widgets/terms_and_conditions_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'widgets/login_bloc_listener.dart';
 
@@ -23,53 +24,59 @@ class LoginScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 24.rw, vertical: 20.rh),
           child: SingleChildScrollView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('Welcome Back', style: TextStyles.font24BlueBold),
-                verticalSpace(8),
-                Text(
-                  'We\'re excited to have you back, can\'t wait to see what you\'ve been up to since you last logged in.',
-                  style: TextStyles.font14GrayRegular,
-                ),
-                verticalSpace(28),
-                const EmailAndPassword(),
-                verticalSpace(20),
-                Row(
+                SvgPicture.asset('assets/svgs/athir_logo1.svg'),
+                verticalSpace(25),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: AppTextButton(
-                        buttonText: 'Login',
-                        textStyle: TextStyles.font16WhiteSemiBold,
-                        onPressed: () {
-                          validateThenDoLogin(context);
-                        },
-                      ),
+                    Text('Welcome Back', style: TextStyles.font24BlueBold),
+                    verticalSpace(8),
+                    Text(
+                      'We\'re excited to have you back, can\'t wait to see what you\'ve been up to since you last logged in.',
+                      style: TextStyles.font14GrayRegular,
                     ),
-                    horizontalSpace(8),
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: ColorsManager.lightBlue,
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: IconButton(
-                        tooltip: 'Login with fingerprint',
-                        onPressed: () {
-                          activateFingerprintLogin(context);
-                        },
-                        icon: const Icon(Icons.fingerprint),
-                        color: ColorsManager.mainBlue,
-                      ),
+                    verticalSpace(28),
+                    const EmailAndPassword(),
+                    verticalSpace(20),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: AppTextButton(
+                            buttonText: 'Login',
+                            textStyle: TextStyles.font16WhiteSemiBold,
+                            onPressed: () {
+                              validateThenDoLogin(context);
+                            },
+                          ),
+                        ),
+                        horizontalSpace(8),
+                        Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: ColorsManager.lightBlue,
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          child: IconButton(
+                            tooltip: 'Login with fingerprint',
+                            onPressed: () {
+                              activateFingerprintLogin(context);
+                            },
+                            icon: const Icon(Icons.fingerprint),
+                            color: ColorsManager.mainBlue,
+                          ),
+                        ),
+                      ],
                     ),
+                    verticalSpace(16),
+                    const Center(child: TermsAndConditionsText()),
+                    verticalSpace(28),
+                    const Center(child: DontHaveAccountText()),
+                    const LoginBlocListener(),
                   ],
                 ),
-                verticalSpace(16),
-                const Center(child: TermsAndConditionsText()),
-                verticalSpace(28),
-                const Center(child: DontHaveAccountText()),
-                const LoginBlocListener(),
               ],
             ),
           ),

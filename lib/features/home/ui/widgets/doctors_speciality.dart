@@ -9,11 +9,6 @@ class DoctorSpeciality extends StatelessWidget {
     return Row(
       children: [
         Text('Doctor Speciality', style: TextStyles.font18DarkBlueSemiBold),
-        const Spacer(),
-        GestureDetector(
-          onTap: () {},
-          child: Text('See All', style: TextStyles.font12BlueRegular),
-        ),
       ],
     );
   }
