@@ -2,7 +2,7 @@
   <img src="assets/svgs/athir_logo.svg" width="200" alt="DocDoc Logo"/>
 </p>
 
-<h1 align="center">DocDoc - Doctor Appointment App</h1>
+<h1 align="center">AthirCare - Doctor Appointment App</h1>
 
 <p align="center">
   A comprehensive doctor appointment booking application built with Flutter, featuring doctor discovery, specialization filtering, appointment scheduling, and user profile management.
