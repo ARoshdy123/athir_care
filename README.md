@@ -70,6 +70,8 @@ lib/
 │   ├── booking/                   # Appointment booking flow
 │   ├── my_appointments/           # Appointment history & reschedule
 │   └── profile/                   # User profile & settings
+│   ├── medical_records/           # All the medical records and attachments
+│   └── offers/                    # Avaliabe offers screen
 │
 ├── doc_app.dart                   # App root widget
 ├── main_development.dart          # Development entry point
