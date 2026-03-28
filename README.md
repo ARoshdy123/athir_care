@@ -21,8 +21,7 @@
 ## Screenshots
 
 | Onboarding | Home | Explore | Filter |
-|:-<img width="375" height="812" alt="Onboarding (3)" src="https://github.com/user-attachments/assets/7303a2c0-1af7-46c5-99c3-b6f8f3f47e00" />
---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|
 | Splash & Get Started | Specializations & Doctors | Search & Doctor List | Speciality Filter |
 
 | Doctor Detail | Book Appointment | My Appointments | Profile |
