@@ -1,5 +1,6 @@
 <p align="center">
-  <img src="assets/svgs/athir_logo.svg" width="200" alt="DocDoc Logo"/>
+ <img width="1920" height="960" alt="Cover" src="https://github.com/user-attachments/assets/345a2c8c-08c1-40a4-9577-a0da274612ac" />
+
 </p>
 
 <h1 align="center">AthirCare - Doctor Appointment App</h1>
