@@ -43,6 +43,9 @@
 - **Biometric Auth** — Local authentication support via `local_auth`
 - **Secure Storage** — Token & sensitive data stored with `flutter_secure_storage`
 - **Native Splash Screen** — Custom branded splash for Android & iOS
+- **Offers Screen** — Avaliable offers page
+- **Medical records section** — with bundled PDF viewing and file download support.
+- **External deep links** — to Google Maps for doctor and offer locations.
 
 ---
 
