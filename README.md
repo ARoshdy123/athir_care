@@ -22,7 +22,8 @@
 
 | Onboarding | Home | Explore | Filter |
 |:---:|:---:|:---:|:---:|
-| Splash & Get Started | Specializations & Doctors | Search & Doctor List | Speciality Filter |
+| Splash & Get Started | <img width="375" height="812" alt="Homepage" src="https://github.com/user-attachments/assets/a46c4dbc-fffa-4ec6-917e-78b16df20fac" />
+ | Search & Doctor List | Speciality Filter |
 
 | Doctor Detail | Book Appointment | My Appointments | Profile |
 |:---:|:---:|:---:|:---:|
