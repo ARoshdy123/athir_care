@@ -19,15 +19,14 @@
 ---
 
 ## Screenshots
+<img width="1600" height="1200" alt="Shot" src="https://github.com/user-attachments/assets/7f2c840c-dcb2-4a5b-8778-cd50e4a7e793" />
 
-| Onboarding | Home | Explore | Filter |
-|:---:|:---:|:---:|:---:|
-| Splash & Get Started | <img width="375" height="812" alt="Homepage" src="https://github.com/user-attachments/assets/a46c4dbc-fffa-4ec6-917e-78b16df20fac" />
- | Search & Doctor List | Speciality Filter |
+<img width="2588" height="1200" alt="appointment" src="https://github.com/user-attachments/assets/fa16b506-63fa-4366-9ffc-e0ce2e19abe1" />
+<img width="1600" height="1200" alt="Shot (3)" src="https://github.com/user-attachments/assets/348c4e32-11e2-4a50-a026-86b87002d0d3" />
+<img width="1600" height="1200" alt="Shot (4)" src="https://github.com/user-attachments/assets/e7ac30f6-2d16-4c7c-bd08-089560e97847" />
+<img width="1600" height="1200" alt="Shot (5)" src="https://github.com/user-attachments/assets/7f95c50c-9740-4780-8647-a02144ea7a24" />
+<img width="1600" height="1200" alt="Shot (5)" src="https://github.com/user-attachments/assets/140b6312-368e-4a6f-9845-c25d22df09b4" />
 
-| Doctor Detail | Book Appointment | My Appointments | Profile |
-|:---:|:---:|:---:|:---:|
-| About, Location, Reviews | Date, Time & Payment | Upcoming & Past | Personal Info & Settings |
 
 ---
 
