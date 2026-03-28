@@ -100,25 +100,30 @@ feature/
 
 ## Tech Stack
 
-| Category | Technology |
-|---|---|
-| **Framework** | Flutter 3.7+ |
-| **Language** | Dart 3.7+ |
-| **State Management** | flutter_bloc (Cubit) |
-| **Immutable States** | Freezed |
-| **Networking** | Dio + Retrofit |
-| **Serialization** | json_serializable + json_annotation |
-| **Dependency Injection** | GetIt |
-| **Routing** | Navigator 1.0 (named routes) |
-| **Responsive UI** | flutter_screenutil |
-| **Secure Storage** | flutter_secure_storage |
-| **Biometrics** | local_auth |
-| **Local Storage** | shared_preferences |
-| **Image Handling** | cached_network_image, image_picker |
-| **UI Components** | google_nav_bar, shimmer, flutter_svg, easy_date_timeline |
-| **Splash** | flutter_native_splash |
-| **Font** | Poppins (Regular, Medium, Bold) |
+| Area | Implementation |
+| --- | --- |
+| Framework | Flutter |
+| Language | Dart (`sdk: ^3.7.0`) |
+| State management | `flutter_bloc` with Cubits |
+| Dependency injection | `get_it` |
+| Networking | `dio`, `retrofit`, `pretty_dio_logger` |
+| Models / code generation | `json_serializable`, `json_annotation`, `freezed`, `build_runner` |
+| Local storage | `shared_preferences`, `flutter_secure_storage` |
+| Biometrics | `local_auth` |
+| UI / responsiveness | `flutter_screenutil`, `flutter_svg`, `shimmer`, `google_nav_bar`, `easy_date_timeline` |
+| Media / files | `image_picker`, `pdfrx`, `path_provider`, `permission_handler`, `url_launcher` |
+| Splash screen | `flutter_native_splash` |
 
+## Architecture
+
+The app follows a feature-first structure with clear separation between:
+
+- `data`: Retrofit services, models, and repositories
+- `logic`: Cubits and immutable states
+- `ui`: screens and feature widgets
+- `core`: shared helpers, routing, networking, theming, dependency injection, and reusable widgets
+
+State is managed with Cubits, and dependencies are registered centrally through `GetIt`.
 ---
 
 ## Getting Started
